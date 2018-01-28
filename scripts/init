@@ -1,0 +1,26 @@
+#!/sbin/openrc-run
+# Copyright 1999-2017 Gentoo Foundation
+# Distributed under the terms of the GNU General Public License v2
+
+DAEMON=/usr/bin/powerdog
+PID=/var/run/powerdog.pid
+
+start() {
+  ebegin "Starting 'powerdog' daemon"
+  start-stop-daemon \
+    --background \
+    --start \
+    --exec ${DAEMON} \
+    --make-pidfile \
+    --pidfile ${PID} --
+  eend $?
+}
+
+stop() {
+  ebegin "Stopping 'powerdog' daemon"
+  start-stop-daemon \
+    --stop \
+    --exec ${DAEMON} \
+    --pidfile ${PID}
+  eend $?
+}
